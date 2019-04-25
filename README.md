@@ -20,3 +20,16 @@ Updated 2019.04.23
     > res/xml文件夹下定义file_paths，其中申明需要公开的文件目录
     > 清单文件中配置fileprovider
     > 应用中完成file://到content://的转换
+
+------
+Updated 2019.04.25
+### 语言适配
+* language.AllUtil.java
+* Android7.0之前手机只能设置单一语言，获取系统语言采用：
+    > 1.getResources().getConfiguration().locale
+    > 2.Locale.getDefault()
+* Android7.0之后手机可以设置多种语言，并指定优先级。此时系统返回的不再是单一的语言，而是一个语言列表（在手机设置-语言设置中可以查看），获取这个列表采用:
+    >1.getResources().getConfiguration().getLocales()
+    > 2.LocaleList.getDefault()
+* 使用locale.getLanguage()和locale.getCountry()来分别获取系统语言和国家
+* 结论：Android7.0之后获取系统为APP调整后的默认语言：Locale.getDefault()；（Locale.getDefault() 和 LocaleList.getAdjustedDefault().get(0) 同等效果，还不需要考虑版本问题）
