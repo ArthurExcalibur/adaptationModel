@@ -17,9 +17,11 @@ Updated 2019.04.23
 * fileprovider.FileProviderUtils.java
 * fileprovider.file_paths.xml
 * Android 7.0 禁止在应用外部公开 file:// URI，所以我们必须使用 content:// 替代 file://，这时主要需要 FileProvider 的支持，而因为 FileProvider 是 ContentProvider 的子类，所以需要在 AndroidManifest.xml 文件中进行注册，而又因为需要对真实的 filepath 进行映射，所以需要编写一个 xml 文档，用于描述可使用的文件夹目录，以及通过 name 去映射该文件夹目录。
-    > res/xml文件夹下定义file_paths，其中申明需要公开的文件目录
-    > 清单文件中配置fileprovider
-    > 应用中完成file://到content://的转换
+    > 1.res/xml文件夹下定义file_paths，其中申明需要公开的文件目录
+    > 
+    > 2.清单文件中配置fileprovider
+    > 
+    > 3.应用中完成file://到content://的转换
 
 ------
 Updated 2019.04.25
@@ -27,9 +29,42 @@ Updated 2019.04.25
 * language.AllUtil.java
 * Android7.0之前手机只能设置单一语言，获取系统语言采用：
     > 1.getResources().getConfiguration().locale
+    > 
     > 2.Locale.getDefault()
 * Android7.0之后手机可以设置多种语言，并指定优先级。此时系统返回的不再是单一的语言，而是一个语言列表（在手机设置-语言设置中可以查看），获取这个列表采用:
     >1.getResources().getConfiguration().getLocales()
+    >
     > 2.LocaleList.getDefault()
 * 使用locale.getLanguage()和locale.getCountry()来分别获取系统语言和国家
 * 结论：Android7.0之后获取系统为APP调整后的默认语言：Locale.getDefault()；（Locale.getDefault() 和 LocaleList.getAdjustedDefault().get(0) 同等效果，还不需要考虑版本问题）
+
+------
+Updated 2019.04.30
+### 各种编码格式下的字节问题
+* charset.AllUtil.java
+* 字节数表格
+
+| 编码格式  | 中文字节数  | 英文字节数 |
+| :------------: |:---------------:| :-----:|
+| utf-8      | 3 | 1 |
+| utf-16      | 4        |   4 |
+| UTF-16BE | 2        |    2 |
+| UTF-16LE | 2        |    2 |
+| UTF-32 | 4        |    4 |
+| UTF-32BE | 4        |    4 |
+| UTF-32LE | 4        |    4 |
+| unicode | 4        |    4 |
+| GBK | 2        |    1 |
+| GB2312 | 2        |    1 |
+| GB18030 | 2        |    1 |
+| ISO8859-1 | 1        |    1 |
+| BIG5 | 2        |    1 |
+| ASCII | 1        |    1 |
+
+* 限制计算中英文混合输入的最大字节数：
+	> 使用edittext自带的InputFilter过滤
+
+
+
+### Android Studio搜索代码中的中文
+* 使用正则：^((?!(\*|//)).)+[\u4e00-\u9fa5]全局搜索
