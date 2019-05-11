@@ -68,3 +68,20 @@ Updated 2019.04.30
 
 ### Android Studio搜索代码中的中文
 * 使用正则：^((?!(\*|//)).)+[\u4e00-\u9fa5]全局搜索
+
+------
+Updated 2019.05.12
+### 无线设置界面跳转
+* 正常跳转：
+    > Intent intent = new Intent();
+    > 
+    > intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
+    > 
+    > startActivity(intent);
+    
+* 部分魅族机型无法通过上面的跳转，处理方式:
+    >Intent aaa = new Intent("android.settings.WIFI_SETTINGS");
+    >
+    >startActivity(aaa);
+* 已知机型：
+	> MX5 Android5.1 Flyme6.1.1.0A
