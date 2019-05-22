@@ -85,3 +85,25 @@ Updated 2019.05.12
     >startActivity(aaa);
 * 已知机型：
 	> MX5 Android5.1 Flyme6.1.1.0A
+
+------
+Updated 2019.05.22
+### 获取当前连接WiFi的ssid
+* utils.NetworkUtil.java
+* Android7及以下：
+    > WifiManager.getConnectionInfo().getSSID();
+    
+* Android8.0:
+    >ConnectivityManager.getActiveNetworkInfo().getExtraInfo()
+    
+* Android9.0：
+	> 获取方式同7.0，但是需要获取定位权限且手机打开定位功能
+
+* 华为手机：
+	> 之前出现了在华为9.0的机子上获取ssid为空的情况
+	> 
+	> 更新后方法：根据WifiManager.getConnectionInfo().getNetworkId()拿到当前连接的networkid，然后遍历WifiManager.getConfiguredNetworks()，得到ssid
+	> 
+	> 测试机型：Android 9:HUAWEI ALP-AL00 EMUI9.0.0
+	> 
+	> 测试机型：Android 6:HUAWEI CRR-UL00 EMUI4.0.3
