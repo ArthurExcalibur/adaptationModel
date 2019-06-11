@@ -67,7 +67,7 @@ Updated 2019.04.30
 
 
 ### Android Studio搜索代码中的中文
-* 使用正则：^((?!(\*|//)).)+[\u4e00-\u9fa5]全局搜索
+* 使用正则：[\u4e00-\u9fa5]全局搜索
 
 ------
 Updated 2019.05.12
@@ -92,6 +92,8 @@ Updated 2019.05.22
 * utils.NetworkUtil.java
 * Android7及以下：
     > WifiManager.getConnectionInfo().getSSID();
+    > 
+    > 注意：Android4.4以下获取到的是不带双引号的ssid，之后获取的是带双引号的ssid
     
 * Android8.0:
     >ConnectivityManager.getActiveNetworkInfo().getExtraInfo()
@@ -107,3 +109,19 @@ Updated 2019.05.22
 	> 测试机型：Android 9:HUAWEI ALP-AL00 EMUI9.0.0
 	> 
 	> 测试机型：Android 6:HUAWEI CRR-UL00 EMUI4.0.3
+
+* 小米Android 9出现了收不到WiFi连接广播的bug
+
+------
+Updated 2019.06.11
+### 字符串到日期的转换
+##### 转换2019-06-11T15:59:05+08:00格式的字符串：
+* Android7.0及以上（但是Android7.0以会报运行时异常导致程序崩溃：Unknown pattern character 'X'）： 
+    > SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+    > 
+    > Date date = df.parse(updateTime);
+
+* 更新后的方法：
+	> SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+	> 
+	> ......
